@@ -5,28 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AJAY'S NOTES</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json"> <!-- Link to the manifest file -->
+    <meta name="theme-color" content="#ffffff"> <!-- Theme color for the address bar -->
 </head>
 <body>
     <div class="container">
-        <BR><BR>
-            
-            <h2>AJAY'S NOTES</h2><br>
-            <h4><a href="ajay.html">എഴുത്തുകൾ </a></h4>
+        <br><br>
+        <h2>AJAY'S NOTES</h2><br>
+        <h4><a href="ajay.html">എഴുത്തുകൾ</a></h4>
         <textarea id="notepad" placeholder="നോക്കി നിക്കാതെ വല്ലോം എഴുതെഡേയ്.............."></textarea>
         <button id="saveButton">Save</button>
-        
-        
         <p id="timestamp"></p>
         <label class="switch">
-            
             <input type="checkbox" id="darkModeToggle">
             <span class="slider round"></span>
         </label>
     </div>
     <script src="app.js"></script>
+    <script>
+        // Register the service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
-
-
-
-
