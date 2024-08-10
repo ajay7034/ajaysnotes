@@ -24,21 +24,24 @@
     </div>
     <script src="app.js"></script>
     <script>
-        // Register the service worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                }).catch(function(error) {
-                    console.log('Service Worker registration failed:', error);
-                });
+    // Register the service worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+                console.log('Service Worker registered with scope:', registration.scope);
+            }).catch(function(error) {
+                console.log('Service Worker registration failed:', error);
             });
-        }
 
-        // Refresh button functionality
-        document.getElementById('refreshButton').addEventListener('click', function() {
-            location.reload();
+            // Check for updates every time the page loads
+            registration.update();
         });
-    </script>
+    }
+
+    // Refresh button functionality
+    document.getElementById('refreshButton').addEventListener('click', function() {
+        location.reload(true); // Force reload from server
+    });
+</script>
 </body>
 </html>
