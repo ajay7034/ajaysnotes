@@ -1,10 +1,10 @@
 {
-    "name": "Notepad PWA",
-    "short_name": "Notepad",
+    "name": "AJAY'S NOTES",
+    "short_name": "Notes",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "#3f51b5",
+    "theme_color": "#ffffff",
     "icons": [
         {
             "src": "icon-192x192.png",
