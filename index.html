@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Editor</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #695f5f;
+            margin: 0;
+        }
+        .header {
+            padding: 30px;
+            font-size: 40px;
+            text-align: center;
+            background: #fff;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px; /* Adjust for padding */
+        }
+        .leftcolumn {
+            flex: 75%;
+            padding: 10px;
+        }
+        .rightcolumn {
+            flex: 25%;
+            padding: 10px;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: #ddd;
+            margin-top: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .deleteBtn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .leftcolumn, .rightcolumn {
+                flex: 100%; /* Stack columns on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h6>എഴുത്തുകൾ</h6>
+</div>
+
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card">
+            <h2>Blog Post Editor</h2>
+            <input type="text" id="title" placeholder="Enter post title..." />
+            <input type="date" id="date" />
+            <textarea id="editor" placeholder="Write your blog post here..."></textarea>
+            <button id="previewBtn">Preview</button>
+            <button id="saveBtn">Save</button>
+            <div id="preview" style="margin-top: 20px;"></div>
+            <div id="savedPosts"></div>
+        </div>
+        <div class="card">
+            <h2>THE CHAT ISSUE 😂</h2>
+            <h5>Aug 09, 2024</h5>
+            <p>ഇന്ന്  ഞാൻ അവളുടെ ഫോണിൽ കണ്ട ആ ചാറ്റ് എന്റെ മനസിനെ ഒന്ന് നോവിച്ചു , മുന്നേ ഉണ്ടായ...  ചില കാര്യങ്ങൾ മറക്കാൻ കഴിയുമെങ്കിലും, ഇങ്ങനെ ചില സാഹചര്യങ്ങളിൽ അതിനെ പണ്ടത്തെ അതെ വേദനയോടെ Recall ചെയ്യാൻ ഉള്ള വൃത്തികെട്ട tendancy മനുഷ്യന്റെ മനസിന്‌ ഉണ്ട്... പക്ഷെ എന്റെ കൊച് ശുപ്പറാ 😊... രാത്രി അവളോട് കൊറച്ചു നേരം സംസാരിച്ചപ്പോ തന്നെ ഞാൻ ഓക്കേ ആയി.... ഇന്ന് ഞാൻ ആരെക്കാളും അവളെ വിശ്വസിക്കുണ്ട് പക്ഷെ ഇങ്ങനെ ചില കാര്യങ്ങൾ എന്റെ കഴിഞ്ഞ ആ സംഭവത്തെ ഓര്മിപ്പിക്കുന്നുന്ന്മാത്രം...  "എന്തൊക്കെ ഉണ്ടായാലും കൂടെ ഞാൻ ഉണ്ടാവും"... ഇതായിരുന്നു ഇന്നത്തെ ഞങ്ങളുടെ ചാറ്റിന്റെ അവസത്തെ ആ വാക്ക്.... ഒരുപാട് ...ഒരുപാട് അർത്ഥവും മൂല്യവും ഉള്ള ആ വാക്ക്... അവളെ എനിക്ക് കാണിച്ചു തന്ന പടച്ചോൻമാർക്ക് ( യേശു + കൃഷ്ണൻ & ടീം ) നന്ദി പറഞ്ഞു ഇന്നത്തെ സംഭവ ബഹുലമായ ദിവസത്തിന്   ബൈ ബൈ...</p>
+        </div>
+        <div class="card">
+            <h2>TITLE HEADING</h2>
+            <h5>Aug 10, 2024</h5>
+            <p>Some text..</p>
+        </div>
+    </div>
+    <div class="rightcolumn">
+        <div class="card">
+            <h2>About Me</h2>
+            <p>ഒരു പാവം......</p>
+        </div>
+        <div class="card">
+            <h3>Follow Me</h3>
+            <p>ajay_ver_2.0</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <h4>ajayvalayamnandu@gmail.com</h4>
+</div>
+
+<script>
+    window.onload = function() {
+        const savedPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+        savedPosts.forEach((post, index) => addPostToPage(post, index));
+    };
+
+    document.getElementById('previewBtn').onclick = function() {
+        const content = document.getElementById('editor').value;
+        const title = document.getElementById('title').value;
+        const date = document.getElementById('date').value;
+        document.getElementById('preview').innerHTML = `<h3>${title}</h3><h5>${date}</h5><p>${content}</p>`;
+    };
+
+    document.getElementById('saveBtn').onclick = function() {
+        const content = document.getElementById('editor').value;
+        const title = document.getElementById('title').value;
+        const date = document.getElementById('date').value;
+        if (content && title && date) {
+            const savedPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const post = { title, date, content };
+            savedPosts.push(post);
+            localStorage.setItem('blogPosts', JSON.stringify(savedPosts));
+            addPostToPage(post, savedPosts.length - 1);
+            document.getElementById('editor').value = '';
+            document.getElementById('title').value = '';
+            document.getElementById('date').value = '';
+            alert('Blog post saved!');
+        }
+    };
+
+    function addPostToPage(post, index) {
+        const postDiv = document.createElement('div');
+        postDiv.className = 'card';
+        postDiv.innerHTML = `
+            <h2>${post.title}</h2>
+            <h5>${post.date}</h5>
+            <p>${post.content}</p>
+            <button class="deleteBtn" onclick="deletePost(${index})">Delete</button>
+        `;
+        document.getElementById('savedPosts').appendChild(postDiv);
+    }
+
+    function deletePost(index) {
+        const savedPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+        savedPosts.splice(index, 1);
+        localStorage.setItem('blogPosts', JSON.stringify(savedPosts));
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
